@@ -1,9 +1,9 @@
 import React from 'react'
 
-const CustomFIlter = () => {
+const CustomFilter = () => {
   return (
-    <div>CustomFIlter</div>
+    <div>CustomFilter</div>
   )
 }
 
-export default CustomFIlter
+export default CustomFilter
