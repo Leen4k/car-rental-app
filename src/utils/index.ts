@@ -1,16 +1,21 @@
+import { CarProps, FilterProps } from '@/types';
 import axios from 'axios';
 
-const options = {
-  method: 'GET',
-  url: 'https://cars-by-api-ninjas.p.rapidapi.com/v1/cars',
-  params: {model: 'corolla'},
-  headers: {
-    'X-RapidAPI-Key': process.env.RAPID_KEY,
-    'X-RapidAPI-Host': process.env.RAPID_HOST
-  }
-};
 
-const fetchCar = async () => {
+
+const fetchCar = async (filters: FilterProps) => {
+  const {manufacturer, year, model, limit, fuel} = filters;
+
+  const options = {
+    method: 'GET',
+    url: 'https://cars-by-api-ninjas.p.rapidapi.com/v1/cars',
+    params: {model: model, makes: manufacturer, limit:limit, fuel_type:fuel},
+    headers: {
+      'X-RapidAPI-Key': process.env.RAPID_KEY,
+      'X-RapidAPI-Host': process.env.RAPID_HOST
+    }
+  };
+
     try {
         const response = await axios.request(options);
         return response.data
@@ -37,3 +42,20 @@ const calculateCarRent = (city_mpg: number, year: number) => {
 };
 
 export {calculateCarRent};
+
+const generateCarImageUrl = (car: CarProps, angle?:string) => {
+  const url = new URL ("https://cdn.imagin.studio/getimage") 
+  const  {make, year, model} = car;
+  console.log(car)
+
+  url.searchParams.append("customer", "hrjavascript-mastery");
+  url.searchParams.append("make", make)
+  url.searchParams.append("modelFamily", model.split(" ")[0])
+  url.searchParams.append("zoomType", "fullscreen")
+  url.searchParams.append("modelYear", `${year}`);
+  url.searchParams.append("angle", `${angle}`)
+
+  return `${url}`
+}
+
+export {generateCarImageUrl};

@@ -5,10 +5,15 @@ import SearchBar from '@/components/SearchBar'
 import fetchCar from '@/utils'
 import React from 'react'
 
-const page = async () => {
-  const allCars = await fetchCar();
+const page = async ({searchParams}) => {
+  const allCars = await fetchCar({
+    manufacturer: searchParams.manufacturer || "",
+    year: searchParams.year || 2022,
+    fuel: searchParams.fuel || "",
+    limit: searchParams.limit || 10,
+    model: searchParams.model || "",
+  });
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
-  console.log(allCars) 
   return (
     <main className="overflow-hidden">
       <Hero  />
