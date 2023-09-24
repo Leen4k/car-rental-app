@@ -2,10 +2,12 @@ import CarCard from '@/components/CarCard'
 import CustomFilter from '@/components/CustomFilter'
 import Hero from '@/components/Hero'
 import SearchBar from '@/components/SearchBar'
+import ShowMore from '@/components/ShowMore'
+import { fuels, yearsOfProduction } from '@/constants'
 import fetchCar from '@/utils'
 import React from 'react'
 
-const page = async ({searchParams}) => {
+const page = async ({searchParams}:any) => {
   const allCars = await fetchCar({
     manufacturer: searchParams.manufacturer || "",
     year: searchParams.year || 2022,
@@ -25,8 +27,8 @@ const page = async ({searchParams}) => {
         <div className="home__filters">
           <SearchBar />
           <div className="home__filter-container">
-            <CustomFilter title="fuel" />
-            <CustomFilter title="year" />
+            <CustomFilter title="fuel" options={fuels} />
+            <CustomFilter title="year" options={yearsOfProduction} />
           </div>
         </div>
         {!isDataEmpty ? (
@@ -36,6 +38,7 @@ const page = async ({searchParams}) => {
                 <CarCard car={car} />
               ))}
             </div>
+            <ShowMore pageNumber={searchParams.limit || 10 } isNext={(searchParams.limit || 10) > allCars.length} />
           </section>
         ) :
           <div className="home__error-container"><h2 className="text-black text-xl font-bold">No results found </h2>{allCars?.message}</div>

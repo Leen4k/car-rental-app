@@ -25,7 +25,7 @@ const SearchManufacturer = ({manufacturer,setManufacturer}:SearchManufacturerPro
                 <Combobox.Button className="absolute top-[14px]">
                     <Image src="/car-logo.svg" width={20} height={20} className="ml-4" alt="car logo" />
                 </Combobox.Button>
-                <Combobox.Input className="search-manufacturer__input" placeholder='roll royce...' displayValue={(manufacturer:string) => manufacturer} onChange={e=>setQuery(e.target.value)} />
+                <Combobox.Input className="search-manufacturer__input" placeholder='roll royce...' displayValue={(manufacturer:string) => manufacturer} onChange={e=>setQuery(e.target.value)} autoComplete='off' />
                 <Transition as={Fragment} leave='transition ease-in duration-100' leaveFrom="opacity-100" leaveTo="opacity-0" afterLeave={()=> setQuery("")}>
                     <Combobox.Options>
                         {filteredManufacturer.map((item)=>(
