@@ -35,7 +35,7 @@ const page = async ({searchParams}:any) => {
           <section>
             <div className="home__cars-wrapper">
               {allCars?.map((car)=>(
-                <CarCard car={car} />
+                <CarCard key={car.model} car={car} />
               ))}
             </div>
             <ShowMore pageNumber={searchParams.limit || 10 } isNext={(searchParams.limit || 10) > allCars.length} />
